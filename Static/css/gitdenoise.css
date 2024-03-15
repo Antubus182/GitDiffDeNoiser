@@ -1,0 +1,28 @@
+body{
+    background-color: rebeccapurple;
+}
+
+#header{
+    display: flex;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+}
+
+#userinputs{
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.userinput{
+    padding:2rem;
+}
+
+.vcol{
+    display: flex;
+    flex-direction: column;
+}
+
+#compareinput{
+    color: aquamarine;
+}
