@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 func main() {
@@ -25,5 +26,17 @@ func main() {
 		return
 	}
 
+	arrayofStings := strings.Split((string(stdout)), "\n")
+	addcounter := 0
+	delcounter := 0
 	fmt.Print(string(stdout))
+	fmt.Println("Counting added lines: ")
+	for _, str := range arrayofStings {
+		if strings.Contains(str, "+") {
+			addcounter++
+		} else if strings.Contains(str, "-") {
+			delcounter++
+		}
+	}
+	fmt.Println(addcounter)
 }
