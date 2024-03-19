@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func RunDiff() {
+func RunDiff() string {
 
 	fmt.Println("Git diff")
 	fmt.Println("Cli tool to run git diff")
@@ -24,7 +24,7 @@ func RunDiff() {
 
 	if err != nil {
 		fmt.Println(err.Error())
-		return
+		return ""
 	}
 
 	arrayofStings := strings.Split((string(stdout)), "\n")
@@ -39,5 +39,17 @@ func RunDiff() {
 			delcounter++
 		}
 	}
+
 	fmt.Println(addcounter)
+	paratags := StringToPara(arrayofStings)
+	return paratags
+}
+
+func StringToPara(lines []string) string {
+	para := ""
+	for _, str := range lines {
+		para += "<p>" + str + "</p>"
+	}
+
+	return para
 }

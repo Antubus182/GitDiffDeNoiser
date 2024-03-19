@@ -17,12 +17,13 @@
         </div>
         <div class="vcol">
             <div class="userinput" id="input3">input3</div>
-            <div class="userinput" id="input4">input4</div>
+            <div hx-post="/diff" hx-swap="innerHTML" hx-target="#compareinput" class="userinput" id="input4">POSTKNOP</div>
         </div>
     </div>
     <div id="compareinput">Your Diff will appear here</div>
 </body>
 
+<script src="https://unpkg.com/htmx.org@1.9.9"></script>  <!-- importing htmx-->
 <script src="./js/gitdiffdenoiser.js"></script>
 
 </html>
