@@ -7,20 +7,19 @@ import (
 )
 
 func RunDiff() string {
-
-	fmt.Println("Git diff")
-	fmt.Println("Cli tool to run git diff")
-	fmt.Println("gitdiff <sha> <sha>")
-	fmt.Println("excucute the following command: ")
-	difcom := "git diff 903fc35001c923faf396ccf299bf81287094e926 5d0f6fd61ac2bc5f4dd9844dfdfdcb570fed2079"
-	fmt.Println(difcom)
+	// gitdiff <sha> <sha>
+	//The following parameters should come in as arguments
 	v1 := "903fc35001c923faf396ccf299bf81287094e926"
 	v2 := "5d0f6fd61ac2bc5f4dd9844dfdfdcb570fed2079"
 	directroy := "C:\\Users\\niels.ten.thije\\OneDrive - Zeton BV\\Documenten\\lets-go\\Code\\Lets-go"
-	fmt.Println(directroy)
-	cmd := exec.Command("git", "diff", v1, v2)
-	cmd.Dir = directroy
-	stdout, err := cmd.Output()
+
+	difcom := "git diff 903fc35001c923faf396ccf299bf81287094e926 5d0f6fd61ac2bc5f4dd9844dfdfdcb570fed2079"
+	fmt.Println("excucute the following command: ")
+	fmt.Println(difcom)
+
+	cmd := exec.Command("git", "diff", v1, v2) //the command to be executed
+	cmd.Dir = directroy                        //the directory in which the command should be executed
+	stdout, err := cmd.Output()                //The actual execution of the command
 
 	if err != nil {
 		fmt.Println(err.Error())
