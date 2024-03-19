@@ -29,7 +29,7 @@ func RunDiff() string {
 	arrayofStings := strings.Split((string(stdout)), "\n")
 	addcounter := 0
 	delcounter := 0
-	fmt.Print(string(stdout))
+	//fmt.Print(string(stdout))
 	fmt.Println("Counting added lines: ")
 	for _, str := range arrayofStings {
 		if strings.Contains(str, "+") {

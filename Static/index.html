@@ -10,20 +10,24 @@
 
 <body>
     <div id="header">Head</div>
-    <div id="userinputs">
+    <form id="userinputs" hx-ext="json-enc" hx-post="/diff" hx-swap="innerHTML" hx-target="#compareinput">
         <div class="vcol">
-            <div class="userinput" id="input1">input1</div>
-            <div class="userinput" id="input2">Input2</div>
+            <label for="sha1">First sha code</label>
+            <input type="text" id="sha1" name="Sha1">
+            <label for="sha2">Second sha code</label>
+            <input type="text" id="sha2" name="Sha2">
         </div>
         <div class="vcol">
-            <div class="userinput" id="input3">input3</div>
-            <div hx-post="/diff" hx-swap="innerHTML" hx-target="#compareinput" class="userinput" id="input4">POSTKNOP</div>
+            <label for="dir">Project directory</label>
+            <input type="text" id="dir" name="Dir">
+            <button type="submit" class="userinput">Run Diff</button>
         </div>
-    </div>
+    </form>
     <div id="compareinput">Your Diff will appear here</div>
 </body>
 
 <script src="https://unpkg.com/htmx.org@1.9.9"></script>  <!-- importing htmx-->
+<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script> <!--and the htmx jsonencoder-->
 <script src="./js/gitdiffdenoiser.js"></script>
 
 </html>

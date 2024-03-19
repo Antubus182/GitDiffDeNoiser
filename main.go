@@ -1,10 +1,17 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"net/http"
 )
+
+type DiffData struct {
+	Sha1 string
+	Sha2 string
+	Dir  string
+}
 
 func main() {
 	port := flag.String("addr", ":5000", "HTTP network port")
@@ -28,7 +35,16 @@ func DiffPage(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Method not Allowed"))
 		return
 	}
+	var d DiffData
+
 	fmt.Println("Diffje doen")
+	fmt.Println("the following came in: ")
+	err := json.NewDecoder(r.Body).Decode(&d)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	fmt.Println(d)
 	diffoutput := RunDiff()
 	w.Write([]byte(diffoutput))
 }
