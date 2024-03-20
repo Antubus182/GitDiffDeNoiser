@@ -49,7 +49,7 @@ func DiffPage(w http.ResponseWriter, r *http.Request) {
 	sha2 := d.Sha2
 	dir := d.Dir
 	fmt.Printf("Sha1: %s, Sha2: %s, Directory: %s\n", sha1, sha2, dir)
-	if !VerifyInputs(d) {
+	if !VerifyInputs(d) { //the input directory is not checked, maybe this should be added
 		w.Write([]byte("Invalid sha codes, please provide two 40 char long SHA-1 code"))
 		return
 	}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"html"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -47,6 +48,7 @@ func RunDiff(d DiffData) string {
 func StringToPara(lines []string) string {
 	para := ""
 	for _, str := range lines {
+		str = EscapeHTML(str)
 		para += "<p>" + str + "</p>"
 	}
 
@@ -59,4 +61,8 @@ func VerifyInputs(inputs DiffData) bool {
 		return false
 	}
 	return true
+}
+
+func EscapeHTML(raw string) string {
+	return html.EscapeString(raw)
 }
