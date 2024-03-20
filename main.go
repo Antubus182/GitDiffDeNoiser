@@ -53,6 +53,6 @@ func DiffPage(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid sha codes, please provide two 40 char long SHA-1 code"))
 		return
 	}
-	diffoutput := RunDiff()
+	diffoutput := RunDiff(d)
 	w.Write([]byte(diffoutput))
 }
