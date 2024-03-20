@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"regexp"
 	"strings"
 )
 
@@ -51,4 +52,12 @@ func StringToPara(lines []string) string {
 	}
 
 	return para
+}
+
+func VerifyInputs(inputs DiffData) bool {
+	re := regexp.MustCompile("^[0-9a-fA-F]{40}$")
+	if !re.MatchString(inputs.Sha1) || !re.MatchString(inputs.Sha2) || inputs.Sha1 == inputs.Sha2 {
+		return false
+	}
+	return true
 }

@@ -38,13 +38,21 @@ func DiffPage(w http.ResponseWriter, r *http.Request) {
 	var d DiffData
 
 	fmt.Println("Diffje doen")
-	fmt.Println("the following came in: ")
+
 	err := json.NewDecoder(r.Body).Decode(&d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println(d)
+	fmt.Println("the following came in: ")
+	sha1 := d.Sha1
+	sha2 := d.Sha2
+	dir := d.Dir
+	fmt.Printf("Sha1: %s, Sha2: %s, Directory: %s\n", sha1, sha2, dir)
+	if !VerifyInputs(d) {
+		w.Write([]byte("Invalid sha codes, please provide two 40 char long SHA-1 code"))
+		return
+	}
 	diffoutput := RunDiff()
 	w.Write([]byte(diffoutput))
 }
