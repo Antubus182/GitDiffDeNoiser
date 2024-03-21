@@ -6,6 +6,7 @@ import (
 	"os/exec"
 	"regexp"
 	"strings"
+	"sync"
 )
 
 func RunDiff(d DiffData) string {
@@ -14,6 +15,7 @@ func RunDiff(d DiffData) string {
 	v1 := d.Sha1
 	v2 := d.Sha2
 	directroy := d.Dir
+	var wg sync.WaitGroup
 	//difcom := "git diff 903fc35001c923faf396ccf299bf81287094e926 5d0f6fd61ac2bc5f4dd9844dfdfdcb570fed2079"
 	//fmt.Println("excucute the following command: ")
 	//fmt.Println(difcom)
@@ -38,8 +40,14 @@ func RunDiff(d DiffData) string {
 		if i > 0 {
 			line = EscapeHTML(line)
 		}
-		arrayofStings[i] = FormatDiff(line)
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			arrayofStings[i] = FormatDiff(line)
+		}()
 	}
+	wg.Wait()
+
 	serialized := strings.Join(arrayofStings, "")
 	return serialized + "</div>"
 }

@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 type DiffData struct {
@@ -37,14 +38,12 @@ func DiffPage(w http.ResponseWriter, r *http.Request) {
 	}
 	var d DiffData
 
-	fmt.Println("Diffje doen")
-
 	err := json.NewDecoder(r.Body).Decode(&d)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println("the following came in: ")
+
 	sha1 := d.Sha1
 	sha2 := d.Sha2
 	dir := d.Dir
@@ -53,6 +52,8 @@ func DiffPage(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid sha codes, please provide two 40 char long SHA-1 code"))
 		return
 	}
+	start := time.Now()
 	diffoutput := RunDiff(d)
+	fmt.Printf("Run and denoised the diff in: %s\n", time.Since(start))
 	w.Write([]byte(diffoutput))
 }

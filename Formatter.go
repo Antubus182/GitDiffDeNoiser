@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"regexp"
 	"strings"
 )
@@ -12,15 +11,15 @@ func FormatDiff(line string) string {
 	regStart := regexp.MustCompile(`(?m)^(diff --git)`)
 	//formatted := ""
 	if strings.Contains(line, "LastEditTime") {
-		fmt.Println("Timestamp")
+		//fmt.Println("Timestamp")
 		line = "<p class='timeline'>" + line + "</p>"
 	} else if regStart.MatchString(line) {
 		line = "</div><div class='startsection'>" + line
 	} else if regAdded.MatchString(line) {
-		fmt.Println("Green Line")
+		//fmt.Println("Green Line")
 		line = "<p class='addedline'>" + line + "</p>"
 	} else if regRemoved.MatchString(line) {
-		fmt.Println("Red line")
+		//fmt.Println("Red line")
 		line = "<p class='removedline'>" + line + "</p>"
 	} else {
 		line = "<p>" + line + "</p>"
