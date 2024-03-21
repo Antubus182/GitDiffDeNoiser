@@ -1,5 +1,5 @@
 body{
-    background-color: rebeccapurple;
+    background-color: burlywood;
 }
 
 #header{
@@ -24,5 +24,24 @@ body{
 }
 
 #compareinput{
-    color: aquamarine;
+    color: darkblue;
+}
+
+.startsection{
+    background-color: ghostwhite;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 1rem;
+    margin-bottom: 0.7rem;
+}
+
+.addedline{
+    background-color: lawngreen;
+}
+
+.removedline{
+    background-color: crimson;
+}
+
+.timeline{
+    background-color: khaki;
 }

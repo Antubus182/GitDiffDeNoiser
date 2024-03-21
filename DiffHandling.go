@@ -18,7 +18,7 @@ func RunDiff(d DiffData) string {
 	//fmt.Println("excucute the following command: ")
 	//fmt.Println(difcom)
 
-	cmd := exec.Command("git", "diff", v1, v2) //the command to be executed
+	cmd := exec.Command("git", "diff", v1, v2) //the command to be executed (may add -W to get the full file not hunks)
 	cmd.Dir = directroy                        //the directory in which the command should be executed
 	stdout, err := cmd.Output()                //The actual execution of the command
 
@@ -28,21 +28,20 @@ func RunDiff(d DiffData) string {
 	}
 
 	arrayofStings := strings.Split((string(stdout)), "\n")
-	addcounter := 0
-	delcounter := 0
-	//fmt.Print(string(stdout))
-	fmt.Println("Counting added lines: ")
+	count := 0
 	for _, str := range arrayofStings {
-		if strings.Contains(str, "+") {
-			addcounter++
-		} else if strings.Contains(str, "-") {
-			delcounter++
-		}
+		count = count + FileCount(str)
 	}
-
-	fmt.Println(addcounter)
-	paratags := StringToPara(arrayofStings)
-	return paratags
+	fmt.Printf("gevonden %d files met wijzigingen\n", count)
+	arrayofStings[0] = "<div class='startsection'>" + arrayofStings[0]
+	for i, line := range arrayofStings {
+		if i > 0 {
+			line = EscapeHTML(line)
+		}
+		arrayofStings[i] = FormatDiff(line)
+	}
+	serialized := strings.Join(arrayofStings, "")
+	return serialized + "</div>"
 }
 
 func StringToPara(lines []string) string {
